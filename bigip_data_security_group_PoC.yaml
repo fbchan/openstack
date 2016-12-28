@@ -1,0 +1,23 @@
+heat_template_version: 2015-04-30
+
+description: This template deploys standard TMOS data security group.
+
+resources:
+  bigip_data_security_group_PoC:
+    type: OS::Neutron::SecurityGroup
+    properties:
+      description: security group rules for data interfaces
+      name: bigip_data_security_group_PoC
+      rules: [
+      {"ethertype": IPv6,
+      "remote_ip_prefix": "::/0", 
+      "direction": ingress},
+      {"ethertype": IPv4, 
+      "remote_ip_prefix": "0.0.0/0", 
+      "direction": ingress}
+      ]
+
+outputs:
+   data_security_group_id:
+     description: Get resource id of this security group
+     value: { get_resource: bigip_data_security_group_PoC }
