@@ -304,9 +304,9 @@ resources:
                    }
                }
             }
-cpu_alarm_high:
+
+  cpu_alarm_high:
     type: OS::Ceilometer::Alarm
-    depends_on: Telstra_Auto_Scalling_Group
     properties:
       description: Monitor for CPU > 40% for 2 minute
       meter_name: cpu_util
@@ -318,7 +318,6 @@ cpu_alarm_high:
       comparison_operator: gt
   cpu_alarm_low:
     type: OS::Ceilometer::Alarm
-    depends_on: Telstra_Auto_Scalling_Group
     properties:
       description: Monitor for average CPU < 20% for 2 minutes
       meter_name: cpu_util
@@ -327,7 +326,8 @@ cpu_alarm_high:
       evaluation_periods: 1
       threshold: 20
       matching_metadata: {'metadata.user_metadata.stack': {get_param: "OS::stack_id"}}
-      comparison_operator: lt  
+      comparison_operator: lt
+
 outputs:
   vnf1_instance_name:
     description: Name of the vnf1 instance
@@ -380,4 +380,3 @@ outputs:
   vnf1_network_4_port:
     description: The 1.4 port id of f5 vnf1 instance
     value: { get_resource: vnf1_network_4_port }
-  
